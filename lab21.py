@@ -5,15 +5,13 @@ prefix = str(input())
 suffix = str(input())
 
 def rewiewDir(pwd):
-    listdir = os.listdir(pwd)
-    for element in listdir:
-        print(element, " - ")
-        if os.path.isdir(element):
-            print("Dir")
-            rewiewDir(pwd + "/" + element)
-        elif os.path.isfile(element):
-            if element.rfind(suffix) == len(element) - len(suffix):
-                os.rename(element, prefix + element)
+    listdir = os.listdir(pwd) # Создаём список всех элементов в текущей директории
+    for element in listdir: # Цикл в питоне
+        if os.path.isdir(element): # если элемент директория
+            rewiewDir(pwd + "/" + element) # рекурсия в погруженнием в эту директорию
+        elif os.path.isfile(element): # если элемент файл
+            if element.rfind(suffix) == len(element) - len(suffix): # проверка, что суффикс входит в строку и при этом он в конце строки (по определнию суффикса)
+                os.rename(element, prefix + element) # переименовываем файл, добавляю к нему префикс
 
-rewiewDir(os.getcwd())
+rewiewDir(os.getcwd()) # вызов функции с передачей в неё текущей директории
 
