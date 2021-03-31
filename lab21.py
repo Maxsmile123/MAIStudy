@@ -12,7 +12,7 @@ def rewiewDir(pwd):
             if element.rfind(suffix) == len(element) - len(suffix): # проверка, что суффикс входит в строку и при этом он в конце строки (по определнию суффикса)
                 os.rename(element, prefix + element) # переименовываем файл, добавляю к нему префикс
 
-if prefix == null || suffix == null:
+if prefix is None or suffix is None:
     print("Need exactly two arguments")
 rewiewDir(os.getcwd()) # вызов функции с передачей в неё текущей директории
 
