@@ -1,4 +1,5 @@
 import os
+import sys
 
 prefix = str(input())
 suffix = str(input())
@@ -14,5 +15,6 @@ def rewiewDir(pwd):
 
 if prefix is None or suffix is None:
     print("Need exactly two arguments")
+    sys.exit()
 rewiewDir(os.getcwd()) # вызов функции с передачей в неё текущей директории
 
