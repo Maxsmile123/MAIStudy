@@ -11,5 +11,5 @@ else
 		path=$(echo $file | rev | cut -c $lenOfFile- | rev)
 		$(mv $file $path$2$file2)
 	done
-	echo "Done!"
+	echo "Done"
 fi
