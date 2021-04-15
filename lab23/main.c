@@ -26,7 +26,7 @@ int main(void)
 		switch (c) {
 		case '1':
 			printf("\nEnter the value you want to add to the tree:");
-			scanf_s("%d", &value);
+			scanf("%d", &value);
 			t = tree_add_element(t, value);
 			break;
 		case '2':
@@ -34,7 +34,7 @@ int main(void)
 			break;
 		case '3':
 			printf("\nEnter the value you want to delete from the tree: ");
-			scanf_s("%d", &value);
+			scanf("%d", &value);
 			t = delete_element(t, value);
 			break;
 		case '4':
