@@ -5,9 +5,9 @@
 
 
 
-Tree *root_create(int value) // Done
+Tree *root_create(int value) 
 {
-    Tree* tree = (Tree*)malloc(sizeof(Tree));
+    Tree *tree = (Tree*)malloc(sizeof(Tree));
     tree->data = value;
     tree->left = NULL;
     tree->right = NULL;
@@ -15,7 +15,7 @@ Tree *root_create(int value) // Done
     return tree;
 }
 
-Tree *tree_add_element(Tree *root, int value) // Done
+Tree *tree_add_element(Tree *root, int value)
 { 
     if (root == NULL) {
         printf("Done!\n\n");
@@ -29,10 +29,16 @@ Tree *tree_add_element(Tree *root, int value) // Done
 
     while (tree1 != NULL) {
         tree2 = tree1;
-        if (value < tree1->data)
+        if (value < tree1->data) {
             tree1 = tree1->left;
-        else
+        }
+        else if (value > tree1->data) {
             tree1 = tree1->right;
+        }
+        else {
+            printf("This value is already exist in tree! Use other values!\n\n");
+            return root;
+        }
     }
     NewTree->parent = tree2;
     NewTree->left = NULL;
@@ -46,40 +52,58 @@ Tree *tree_add_element(Tree *root, int value) // Done
     return root;
 }
 
-void tree_print(Tree *root, int n) // Done
+void tree_print(Tree *root, int n) 
 {
     if (root != NULL) {
         tree_print(root->right, n + 1);
         for (int i = 0; i < n; i++) printf("\t");
         printf("%d\n", root->data);
         tree_print(root->left, n + 1);
+    } else {
+        printf("Your tree is empty!\n");
     }
 }
 
-Tree *delete_element(Tree *root, int value) // Done
-{ 
-    Tree *tree1 = NULL, *tree2 = NULL, *tree3 = root;
+Tree *delete_element(Tree *root, int value) 
+{
+    Tree* tree1 = NULL, * tree2 = NULL, *tree3 = root, *tree4 = NULL;
 
-    if (tree3 == NULL) {
-        printf("Delete error! Your tree doesn't exist!");
-        return NULL;
+    if (root == NULL) {
+        printf("Delete error! Your tree doesn't exist!\n");
+        return root;
     }
-    tree1 = search_in_tree(tree3, value);
+    tree1 = search_in_tree(tree3, value); 
     if (tree1 == NULL) {
-        printf("Your element already doesn't exist!");
+        printf("Your element already doesn't exist!\n");
+        return root;
     }
-    // Первый случай. Элемент == лист
+    // First case. element == leaf
     if (tree1->left == NULL && tree1->right == NULL) {
+        if (tree1->parent == NULL) { // If this is root
+            free(tree1);
+            tree1 = NULL;
+            printf("Successful deletion\n");
+            return NULL;
+        }
         tree2 = tree1->parent;
         if (tree2->left == tree1) {
             tree2->left = NULL;
-        } else {
-            tree2->right = NULL; 
+        }
+        else {
+            tree2->right = NULL;
         }
         free(tree1);
     }
-    // Второй случай. У элемента есть одно поддерево
-    else if (tree1->left != NULL && tree1->right == NULL) {
+    // Second case. one of subtrees are available
+    else if (tree1->left != NULL && tree1->right == NULL) { // left subtrees is exist
+        if (tree1->parent == NULL) { // If this is root
+            tree3 = tree1->left;
+            tree3->parent = NULL;
+            free(tree1);
+            tree1 = NULL;
+            printf("Successful deletion\n");
+            return tree3;
+        }
         tree2 = tree1->parent;
         if (tree2->left == tree1) {
             tree2->left = tree1->left;
@@ -88,7 +112,16 @@ Tree *delete_element(Tree *root, int value) // Done
             tree2->right = tree1->left;
         }
         free(tree1);
-    } else if (tree1->left == NULL && tree1->right != NULL) {
+    }
+    else if (tree1->left == NULL && tree1->right != NULL) { // right subtrees is exist
+        if (tree1->parent == NULL) { // If this is root
+            tree4 = tree1->right;
+            tree4->parent = NULL;
+            free(tree1);
+            tree1 = NULL;
+            printf("Successful deletion\n");
+            return tree3;
+        }
         tree2 = tree1->parent;
         if (tree2->left == tree1) {
             tree2->left = tree1->right;
@@ -98,25 +131,27 @@ Tree *delete_element(Tree *root, int value) // Done
         }
         free(tree1);
     }
-    // 3 случай. Имеются оба поддеререва
+    // Third case. Both subtrees are available
     else if (tree1->left != NULL && tree1->right != NULL) {
         tree2 = minimum(tree1->right);
         tree1->data = tree2->data;
-        if (tree2->parent->left == tree2) {
+        tree4 = tree2->parent;
+        if (tree4->left == tree2) {
             free(tree2);
-            tree2->parent->left = NULL;
+            tree4->left = NULL;
         }
-        if (tree2->parent->right == tree2) {
+        if (tree4->right == tree2) {
             free(tree2);
-            tree2->parent->right = NULL;
+            tree4->right = NULL;
         }
+    }
+    printf("Successful deletion\n");
     return root;
 }
 
-Tree *search_in_tree(Tree *root, int value) // Done
+Tree *search_in_tree(Tree *root, int value)
 {
     if (root == NULL) {
-        printf("Search error! Value doesn't exist!");
         return NULL;
     }
     if (root->data == value) {
@@ -144,7 +179,30 @@ Tree *maximum(Tree *t) {
     return maximum(t->right);
 }
 
-int is_AVL(Tree *t) 
-{
+int max_way(Tree *t, int len) {
+    len++;
+    if (t->right == NULL) {
+        return len;
+    }
+    return max_way(t->right,len);
+}
 
+int min_way(Tree *t, int len)
+{
+    len++;
+    if (t->left == NULL) {
+        return len;
+    }
+    return min_way(t->left,len);
+}
+
+int is_AVL(Tree *root) 
+{
+    if (abs(min_way(root, 0) - max_way(root, 0)) > 1)
+        return 0;
+    if (root->left != NULL)
+        is_AVL(root->left);
+    if (root->right != NULL)
+        is_AVL(root->right);
+    return 1;
 }
