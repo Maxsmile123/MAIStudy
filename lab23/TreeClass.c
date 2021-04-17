@@ -98,7 +98,6 @@ Tree *delete_element(Tree *root, int value)
             tree4 = tree1->left;
             tree4->parent = NULL;
             free(tree1);
-            tree1 = NULL;
             printf("Successful deletion\n");
             return tree4;
         }
@@ -116,7 +115,6 @@ Tree *delete_element(Tree *root, int value)
             tree4 = tree1->right;
             tree4->parent = NULL;
             free(tree1);
-            tree1 = NULL;
             printf("Successful deletion\n");
             return tree4;
         }
