@@ -18,7 +18,7 @@ Tree *root_create(int value)
 Tree *tree_add_element(Tree *root, int value)
 { 
     if (root == NULL) {
-        printf("Done!\n\n");
+        printf("Done!\n");
         return root_create(value);
     }
 
@@ -36,7 +36,7 @@ Tree *tree_add_element(Tree *root, int value)
             tree1 = tree1->right;
         }
         else {
-            printf("This value is already exist in tree! Use other values!\n\n");
+            printf("This value is already exist in tree! Use other values!\n");
             return root;
         }
     }
@@ -48,7 +48,7 @@ Tree *tree_add_element(Tree *root, int value)
     } else {
         tree2->right = NewTree;
     }
-    printf("Done!\n\n");
+    printf("Done!\n");
     return root;
 }
 
