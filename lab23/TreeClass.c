@@ -67,12 +67,12 @@ Tree *delete_element(Tree *root, int value)
     Tree* tree1 = NULL, * tree2 = NULL, *tree3 = root, *tree4 = NULL;
 
     if (root == NULL) {
-        printf("Delete error! Your tree doesn't exist!\n");
+        printf("Delete error! Your tree isn't exist!\n");
         return root;
     }
     tree1 = search_in_tree(tree3, value); 
     if (tree1 == NULL) {
-        printf("Your element already doesn't exist!\n");
+        printf("Your element already isn't exist!\n");
         return root;
     }
     // First case. element == leaf
