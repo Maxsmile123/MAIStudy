@@ -95,12 +95,12 @@ Tree *delete_element(Tree *root, int value)
     // Second case. one of subtrees are available
     else if (tree1->left != NULL && tree1->right == NULL) { // left subtrees is exist
         if (tree1->parent == NULL) { // If this is root
-            tree3 = tree1->left;
-            tree3->parent = NULL;
+            tree4 = tree1->left;
+            tree4->parent = NULL;
             free(tree1);
             tree1 = NULL;
             printf("Successful deletion\n");
-            return tree3;
+            return tree4;
         }
         tree2 = tree1->parent;
         if (tree2->left == tree1) {
@@ -118,7 +118,7 @@ Tree *delete_element(Tree *root, int value)
             free(tree1);
             tree1 = NULL;
             printf("Successful deletion\n");
-            return tree3;
+            return tree4;
         }
         tree2 = tree1->parent;
         if (tree2->left == tree1) {
