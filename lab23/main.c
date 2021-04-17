@@ -39,7 +39,7 @@ int main(void)
 			break;
 		case '4':
 			if (is_AVL(t)) printf("\nYes, your tree is AVL tree\n");
-			else printf("\nNo, your tree doesn't AVL tree :( \n");
+			else printf("\nNo, your tree isn't AVL tree :( \n");
 			break;
 		case '5':
 			printf("\nminimum element from your tree is %d\n", minimum(t)->data);
