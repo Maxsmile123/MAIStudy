@@ -59,8 +59,6 @@ void tree_print(Tree *root, int n)
         for (int i = 0; i < n; i++) printf("\t");
         printf("%d\n", root->data);
         tree_print(root->left, n + 1);
-    } else {
-        printf("Your tree is empty!\n");
     }
 }
 
