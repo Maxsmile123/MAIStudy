@@ -3,12 +3,7 @@
 #include <string.h>
 #include "structure.h"
 
-/*
-* Идея с именем файла. Заправшиваем один раз - если такого файла нет - создаём его. Если есть - ничего
-* Просто предоставляем доступ к функциям программы.
-    printf("Enter file name:\n");
-    scanf("%s", fileName);
-*/
+
 
 int main(int argc, char* argv[])
 {
