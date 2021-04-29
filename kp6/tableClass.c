@@ -58,7 +58,7 @@ void add()
             scanf("%d", &add.numberOfProcessors);
             printf("Enter student's PC type of processors:\n");
             printf("1) x32\n 2) x64\n");
-            scanf("%с", &c);
+            scanf("%Г±", &c);
             switch (c) {
             case '1':
                 strcpy(add.typeOfProcessors, "x32");
@@ -72,7 +72,7 @@ void add()
             scanf("%d", &add.memoryCapacity);
             printf("Enter student's PC type of video controller:\n");
             printf("1. built-in\n 2. external\n 3. AGP\n 4. PCI\n");
-            scanf("%с", &c);
+            scanf("%Г±", &c);
             switch (c) {
             case '1':
                 strcpy(add.typeOfVideoController, "built-in");
@@ -167,7 +167,7 @@ void remove()
     }
 }
 
-void typicalConfigurations() // В интах ищем среднее значение и берём то значение, разница с которым минимальна
+void typicalConfigurations() 
 {
     char fileName[40];
     printf("Enter the name of the file you want to print typical configurations:\n");
