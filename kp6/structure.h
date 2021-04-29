@@ -9,11 +9,11 @@ typedef struct
 	int numberOfProcessors;
 	char typeOfProcessors[5]; // 1 - x32, 2 - x64
 	int memoryCapacity;
-	char typeOfVideoController[10]; // 1 - встроенный, 2 - внешний, 3 - AGP, 4 - PCI
+	char typeOfVideoController[10]; // 1 - built-in, 2 - external, 3 - AGP, 4 - PCI
 	int videoMemoryCapacity;
 	char videoMemoryType[10]; // SCSI/IDE(1) or ATA/SATA(2)
 	int numberOfHardDrives;
-	int capacityOfHardDrives; // в сумме
+	int capacityOfHardDrives; 
 	int peripherals;
 	char OC[9]; // 1 - windows, 2 - linux, 3 - macOS
 } PC;
