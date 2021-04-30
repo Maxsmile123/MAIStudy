@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #include "structure.h"
 
 
@@ -150,7 +151,7 @@ void print()
     }
 }
 
-void remove()
+void removes()
 {
     char fileName[40];
     printf("Enter the name of the file you want to delete:\n");
