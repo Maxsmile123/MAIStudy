@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
         print();
     }
     else if (!strcmp(argv[1], "-d")) {
-        remove();
+        removes();
     }
     else if (!strcmp(argv[1], "-h")) {
         print_help();
