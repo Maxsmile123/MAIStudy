@@ -21,9 +21,10 @@ typedef struct
 void create();
 void add();
 void print();
-void remove();
+void removes();
 void typicalConfigurations();
 
 
 
 #endif
+
