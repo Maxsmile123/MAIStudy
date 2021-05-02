@@ -40,6 +40,6 @@ int main(int argc, char* argv[])
 void print_help() 
 {
     printf("Welcome to the program for working with databases!\nYou have the following options:\n");
-    printf("1) Create the database(-c)\n 2) Add an entry to the database(-a)\n3) Print the database(-p)\n");
+    printf("1) Create the database(-c)\n2) Add an entry to the database(-a)\n3) Print the database(-p)\n");
     printf("4) Delete the database(-d)\n5) Print typical configurations of computers in a group(more than p owners) (-f)\n");
 }
