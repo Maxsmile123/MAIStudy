@@ -27,11 +27,11 @@ void create()
     FILE* file;
     printf("Enter the name of the file you want to create:\n");
     scanf("%s", fileName);
-    file = fopen(fileName, "r");
+    file = fopen(fileName, "rb");
     if (file != NULL) {
         printf("Such file already exists\n");
     } else {
-        file = fopen(fileName, "a");
+        file = fopen(fileName, "ab");
     }
     printf("Creation was successful!\n");
     fclose(file);
@@ -44,12 +44,12 @@ void add()
     PC add;
     printf("Enter the name of the file you want to add the records:\n");
     scanf("%s", fileName);
-    file = fopen(fileName, "r");
+    file = fopen(fileName, "rb");
     if (file == NULL) {
         printf("Such file not exists!\n");
     }
     else {
-        file = fopen(fileName, "a");
+        file = fopen(fileName, "ab");
         printf("Enter how many records do you want to add:\n");
         scanf("%d", &records);
         for (int i = 0; i < records; i++) {
@@ -93,7 +93,7 @@ void print()
     scanf("%s", fileName);
     FILE* file;
     PC read;
-    file = fopen(fileName, "r");
+    file = fopen(fileName, "rb");
     if (file == NULL) {
         printf("Such file not exists\n");
     }
@@ -114,7 +114,7 @@ void removes()
     printf("Enter the name of the file you want to delete:\n");
     scanf("%s", fileName);
     FILE* file;
-    file = fopen(fileName, "r");
+    file = fopen(fileName, "rb");
     if (!file) {
         printf("Such file not exists!\n");
     }
@@ -130,10 +130,9 @@ void typicalConfigurations()
     printf("Enter the name of the file you want to print typical configurations:\n");
     scanf("%s", fileName);
     FILE* file;
-    FILE* fileForExempalar;
     PC f;
     PC exemplar;
-    file = fopen(fileName, "r");
+    file = fopen(fileName, "rb");
     if (!file) {
         printf("Such file not exists!\n");
     }
@@ -238,19 +237,15 @@ void typicalConfigurations()
         if (max_i == 8) strcat(exemplar.OC, "Windows");
         if (max_i == 9) strcat(exemplar.OC, "Linux");
         if (max_i == 10) strcat(exemplar.OC, "MacOS");
-        fileForExempalar = fopen(fileForExempalar, "a");
-        fwrite(&exemplar, sizeof(PC), 1, fileForExempalar);
-        fclose(fileForExempalar);
-        fileForExempalar = fopen(fileForExempalar, "r");
+
         printf("|Num Proc|Type of proc|Memory|Type video control|Video memory|Video memory type|Num HD|Capacity HD|Num peripherals|OC|\n");
         printf("----------------------------------------------------------------------------------------------------------------------\n");
-        while (fread(&exemplar, sizeof(PC), 1, fileForExempalar) != EOF && !feof(fileForExempalar)) {
+       
         printf("|%17s|%8d|%12s|%6d|%18s|%12d|%17s|%6d|%11d|%15d|%2s|\n",exemplar.numberOfProcessors, exemplar.typeOfProcessors, exemplar.memoryCapacity,
                 exemplar.typeOfVideoController, exemplar.videoMemoryCapacity, exemplar.videoMemoryType, exemplar.numberOfHardDrives, exemplar.capacityOfHardDrives,
                 exemplar.peripherals, exemplar.OC);
-        }
+        
         fclose(file);
-        remove(fileForExempalar);
     }
 }
 #endif
