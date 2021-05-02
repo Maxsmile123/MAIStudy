@@ -24,46 +24,29 @@ typedef struct
 void create() 
 {
     char fileName[40];
-    char choice = 'n';
     FILE* file;
     printf("Enter the name of the file you want to create:\n");
     scanf("%s", fileName);
     file = fopen(fileName, "r");
     if (file != NULL) {
-        printf("Such file already exists\n Do you want rewrite him? y\\n");
-        scanf("c", &choice);
-        if (choice == 'y') {
-            file = fopen(fileName, "w");
-        }
-    }
-    else {
+        printf("Such file already exists\n");
+    } else {
         file = fopen(fileName, "a");
     }
     printf("Creation was successful!\n");
     fclose(file);
 }
-void add() 
+void add()
 {
     char fileName[40];
-    char c;
     int records;
-    char choise = 'n';
     FILE* file;
     PC add;
     printf("Enter the name of the file you want to add the records:\n");
     scanf("%s", fileName);
     file = fopen(fileName, "r");
     if (file == NULL) {
-        printf("Such file not exists!\n Let's create him?\n y\\n");
-        scanf("%c", &choise);
-        if (choise == 'y') {
-            create();
-            return;
-        }
-        else {
-            printf("Ok :(\n");
-            return;
-        }
+        printf("Such file not exists!\n");
     }
     else {
         file = fopen(fileName, "a");
@@ -75,49 +58,18 @@ void add()
             printf("Enter student's PC number of processors:\n");
             scanf("%d", &add.numberOfProcessors);
             printf("Enter student's PC type of processors:\n");
-            printf("1) x32\n 2) x64\n");
-            scanf("%с", &c);
-            switch (c) {
-            case '1':
-                strcpy(add.typeOfProcessors, "x32");
-                break;
-            case '2':
-                strcpy(add.typeOfProcessors, "x64");
-                break;
-            }
-
+            printf("1. x32\n2. x64\n");
+            scanf("%s", add.typeOfProcessors);
             printf("Enter student's PC memory capacity:\n");
             scanf("%d", &add.memoryCapacity);
             printf("Enter student's PC type of video controller:\n");
-            printf("1. built-in\n 2. external\n 3. AGP\n 4. PCI\n");
-            scanf("%с", &c);
-            switch (c) {
-            case '1':
-                strcpy(add.typeOfVideoController, "built-in");
-                break;
-            case '2':
-                strcpy(add.typeOfVideoController, "external");
-                break;
-            case '3':
-                strcpy(add.typeOfVideoController, "AGP");
-                break;
-            case '4':
-                strcpy(add.typeOfVideoController, "PCI");
-                break;
-            }
+            printf("1. built-in\n2. external\n3. AGP\n4. PCI\n");
+            scanf("%s", add.typeOfVideoController);
             printf("Enter student's PC video memory capacity:\n");
             scanf("%d", &add.videoMemoryCapacity);
             printf("Enter student's PC video memory type:\n");
-            printf("1. SCSI/IDE\n 2. ATA/SATA\n");
-            scanf("%c", &c);
-            switch (c) {
-            case '1':
-                strcpy(add.videoMemoryType, "SCSI/IDE");
-                break;
-            case '2':
-                strcpy(add.videoMemoryType, "ATA/SATA");
-                break;
-            }
+            printf("1. SCSI/IDE\n2. ATA/SATA\n");
+            scanf("%s", add.videoMemoryType);
             printf("Enter student's PC number of hard drives:\n");
             scanf("%d", &add.numberOfHardDrives);
             printf("Enter student's PC capacity of hard drives:\n");
@@ -125,25 +77,15 @@ void add()
             printf("Enter student's PC number of peripherals:\n");
             scanf("%d", &add.peripherals);
             printf("Enter student's PC OC:\n");
-            printf("1) Windows\n 2) Linux\n 3) MacOS\n");
-            scanf("%c", &c);
-            switch (c) {
-            case '1':
-                strcpy(add.OC, "Windows");
-                break;
-            case '2':
-                strcpy(add.OC, "Linux");
-                break;
-            case '3':
-                strcpy(add.OC, "MacOS");
-                break;
-            }
+            printf("1) Windows\n2) Linux\n3) MacOS\n");
+            scanf("%s", add.OC); 
             fwrite(&add, sizeof(PC), 1, file);
+	}
+            printf("Records added successfully!\n");
+            fclose(file);
         }
-        printf("Records added successfully!\n");
-        fclose(file);
-    }
 }
+
 void print() 
 {
     char fileName[40];
@@ -156,10 +98,10 @@ void print()
         printf("Such file not exists\n");
     }
     else {
-        printf("|  Student's surname|Number of processors|Type of processors|Memory capacity|Type of video controller|Video memory capacity|Video memory type|Number of hard drives|Capacity of hard drives|Number of peripherals|OC|\n");
+        printf("|Student's surname|Num Proc|Type of proc|Memory|Type video control|Video memory|Video memory type|Num HD|Capacity HD|Num peripherals|OC|\n");
         printf("-------------------------------------------------------------------------------------------------------------------------------\n");
         while (fread(&read, sizeof(PC), 1, file) != EOF && !feof(file)) {
-            printf("|%17s|%21d|%19s|%16d|%25s|%22d|%18s|%22d|%24d|%22d|%2s|\n", read.surname, read.numberOfProcessors, read.typeOfProcessors, read.memoryCapacity,
+            printf("|%17s|%8d|%12s|%6d|%18s|%12d|%17s|%6d|%11d|%15d|%2s|\n", read.surname, read.numberOfProcessors, read.typeOfProcessors, read.memoryCapacity,
                 read.typeOfVideoController, read.videoMemoryCapacity, read.videoMemoryType, read.numberOfHardDrives, read.capacityOfHardDrives,
                 read.peripherals, read.OC);
         }
@@ -177,7 +119,7 @@ void removes()
         printf("Such file not exists!\n");
     }
     else {
-        delete(fileName);
+        remove(fileName);
         printf("The file was successfully deleted!\n");
         fclose(file);
     }
@@ -188,13 +130,14 @@ void typicalConfigurations()
     printf("Enter the name of the file you want to print typical configurations:\n");
     scanf("%s", fileName);
     FILE* file;
+    FILE* fileForExempalar;
     PC f;
+    PC exemplar;
     file = fopen(fileName, "r");
     if (!file) {
         printf("Such file not exists!\n");
     }
     else {
-        PC exemplar;
         int sum[6];
         for (int i = 0; i < 6; i++)
             sum[i] = 0;
@@ -270,8 +213,8 @@ void typicalConfigurations()
                 exemplar.peripherals = f.peripherals;
             }
         }
-        if (counterChars[0] >= counterChars[1]) strcpy(exemplar.typeOfProcessors, "x32");
-        else strcpy(exemplar.typeOfProcessors, "x64");
+        if (counterChars[0] >= counterChars[1]) strcat(exemplar.typeOfProcessors, "x32");
+        else strcat(exemplar.typeOfProcessors, "x64");
         int max = 0;
         int max_i = 2;
         for (int i = 2; i < 6; i++)
@@ -279,12 +222,12 @@ void typicalConfigurations()
                 max = counterChars[i];
                 max_i = i;
             }
-        if (max_i == 2) strcpy(exemplar.typeOfVideoController, "built-in");
-        if (max_i == 3) strcpy(exemplar.typeOfVideoController, "external");
-        if (max_i == 4) strcpy(exemplar.typeOfVideoController, "AGP");
-        if (max_i == 5) strcpy(exemplar.typeOfVideoController, "PCI");
-        if (counterChars[6] >= counterChars[7]) strcpy(exemplar.videoMemoryType, "SCSI/IDE");
-        else strcpy(exemplar.videoMemoryType, "ATA/SATA");
+        if (max_i == 2) strcat(exemplar.typeOfProcessors, "built-in");
+        if (max_i == 3) strcat(exemplar.typeOfVideoController, "external");
+        if (max_i == 4) strcat(exemplar.typeOfVideoController, "AGP");
+        if (max_i == 5) strcat(exemplar.typeOfVideoController, "PCI");
+        if (counterChars[6] >= counterChars[7]) strcat(exemplar.videoMemoryType, "SCSI/IDE");
+        else strcat(exemplar.videoMemoryType, "ATA/SATA");
         max = 0;
         max_i = 8;
         for (int i = 8; i < 11; i++)
@@ -292,21 +235,23 @@ void typicalConfigurations()
                 max = counterChars[i];
                 max_i = i;
             }
-        if (max_i == 8) strcpy(exemplar.OC, "Windows");
-        if (max_i == 9) strcpy(exemplar.OC, "Linux");
-        if (max_i == 10) strcpy(exemplar.OC, "MacOS");
-        printf("|  Student's surname|Number of processors|Type of processors|Memory capacity|Type of video controller|Video memory capacity|Video memory type|Number of hard drives|Capacity of hard drives|Number of peripherals|OC|\n");
-        printf("-------------------------------------------------------------------------------------------------------------------------------\n");
-        while (fread(&exemplar, sizeof(PC), 1, file) != EOF && !feof(file)) {
-            printf("|%17s|%21d|%19s|%16d|%25s|%22d|%18s|%22d|%24d|%22d|%2s|\n", exemplar.surname, exemplar.numberOfProcessors, exemplar.typeOfProcessors, exemplar.memoryCapacity,
+        if (max_i == 8) strcat(exemplar.OC, "Windows");
+        if (max_i == 9) strcat(exemplar.OC, "Linux");
+        if (max_i == 10) strcat(exemplar.OC, "MacOS");
+        fileForExempalar = fopen(fileForExempalar, "a");
+        fwrite(&exemplar, sizeof(PC), 1, fileForExempalar);
+        fclose(fileForExempalar);
+        fileForExempalar = fopen(fileForExempalar, "r");
+        printf("|Num Proc|Type of proc|Memory|Type video control|Video memory|Video memory type|Num HD|Capacity HD|Num peripherals|OC|\n");
+        printf("----------------------------------------------------------------------------------------------------------------------\n");
+        while (fread(&exemplar, sizeof(PC), 1, fileForExempalar) != EOF && !feof(fileForExempalar)) {
+        printf("|%17s|%8d|%12s|%6d|%18s|%12d|%17s|%6d|%11d|%15d|%2s|\n",exemplar.numberOfProcessors, exemplar.typeOfProcessors, exemplar.memoryCapacity,
                 exemplar.typeOfVideoController, exemplar.videoMemoryCapacity, exemplar.videoMemoryType, exemplar.numberOfHardDrives, exemplar.capacityOfHardDrives,
                 exemplar.peripherals, exemplar.OC);
         }
         fclose(file);
+        remove(fileForExempalar);
     }
 }
-
-
-
 #endif
 
