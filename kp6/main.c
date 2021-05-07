@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "structure.h"
+#include <limits.h>
+//#include "structure.h"
 
 
 
 int main(int argc, char* argv[])
-{
-	
+{	
     if (argc != 2) {
         printf("Need exactly two arguments\n");
         exit(1);
@@ -43,3 +43,6 @@ void print_help()
     printf("1) Create the database(-c)\n2) Add an entry to the database(-a)\n3) Print the database(-p)\n");
     printf("4) Delete the database(-d)\n5) Print typical configurations of computers in a group(more than p owners) (-f)\n");
 }
+
+
+
