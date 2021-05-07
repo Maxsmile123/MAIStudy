@@ -101,7 +101,7 @@ void print()
         printf("|Student's surname|Num Proc|Type of proc|Memory|Type video control|Video memory|Video memory type|Num HD|Capacity HD|Num peripherals|OC|\n");
         printf("-------------------------------------------------------------------------------------------------------------------------------\n");
         while (fread(&read, sizeof(PC), 1, file) != EOF && !feof(file)) {
-            printf("|%17s|%8d|%12s|%6dGB|%18s|%12dGB|%17s|%6dGB|%11dGB|%15d|%2s|\n", read.surname, read.numberOfProcessors, read.typeOfProcessors, read.memoryCapacity,
+            printf("|%17s|%8d|%12s|%4dGB|%18s|%10dGB|%17s|%4dGB|%9dGB|%15d|%2s|\n", read.surname, read.numberOfProcessors, read.typeOfProcessors, read.memoryCapacity,
                 read.typeOfVideoController, read.videoMemoryCapacity, read.videoMemoryType, read.numberOfHardDrives, read.capacityOfHardDrives,
                 read.peripherals, read.OC);
         }
@@ -127,105 +127,85 @@ void removes()
 void typicalConfigurations() 
 {
     char fileName[40];
+    int p;
     printf("Enter the name of the file you want to print typical configurations:\n");
     scanf("%s", fileName);
+    printf("Enter 'p':\n");
+    scanf("%d", &p);
     FILE* file;
     PC f;
-    PC exemplar;
+    int count = 0;
     file = fopen(fileName, "rb");
     if (!file) {
         printf("Such file not exists!\n");
     }
     else {
-        int count = 0; // Number of records
-        int mins[6];
-        for (int i = 0; i < 6; i++)
-            mins[i] = INT_MAX;
-        int sum[6];
-        for (int i = 0; i < 6; i++)
-            sum[i] = 0;
-        /* 0) numberOfProcessors
-        *  1) memoryCapacity
-        *  2) videoMemoryCapacity
-        *  3) numberOfHardDrives
-        *  4) capacityOfHardDrives
-        *  5) peripherals
-        */
-        int counterChars[11];
-        for (int i = 0; i < 11; i++)
-            counterChars[i] = 0;
-        /* 0) x32
-        *  1) x64
-        *  2) built-in
-        *  3) external
-        *  4) AGP
-        *  5) PCI
-        *  6) SCSI/IDE
-        *  7) ATA/SATA
-        *  8) Windows
-        *  9) Linux
-        * 10) MacOS
-        */
-        while (fread(&f, sizeof(PC), 1, file) != EOF && !feof(file)) {
-            sum[0] += f.numberOfProcessors;
-            sum[1] += f.memoryCapacity;
-            sum[2] += f.videoMemoryCapacity;
-            sum[3] += f.numberOfHardDrives;
-            sum[4] += f.capacityOfHardDrives;
-            sum[5] += f.peripherals;
-            if (!strcmp(f.typeOfProcessors,"x32")) counterChars[0]++;
-            if (!strcmp(f.typeOfProcessors, "x64")) counterChars[1]++;
-            if (!strcmp(f.typeOfVideoController, "built-in")) counterChars[2]++;
-            if (!strcmp(f.typeOfVideoController, "external")) counterChars[3]++;
-            if (!strcmp(f.typeOfVideoController, "AGP")) counterChars[4]++;
-            if (!strcmp(f.typeOfVideoController, "PCI")) counterChars[5]++;
-            if (!strcmp(f.videoMemoryType, "SCSI/IDE")) counterChars[6]++;
-            if (!strcmp(f.videoMemoryType, "ATA/SATA")) counterChars[7]++;
-            if (!strcmp(f.OC, "Windows")) counterChars[8]++;
-            if (!strcmp(f.OC, "Linux")) counterChars[9]++;
-            if (!strcmp(f.OC, "MacOS")) counterChars[10]++;
+         while (fread(&f, sizeof(PC), 1, file) != EOF && !feof(file)) {
             count++;
         }
-        exemplar.numberOfProcessors = sum[0] / count;
-        exemplar.memoryCapacity = sum[1] / count;
-        exemplar.videoMemoryCapacity = sum[2] / count;
-        exemplar.numberOfHardDrives = sum[3] / count;
-        exemplar.capacityOfHardDrives = sum[4] / count;
-        exemplar.peripherals = sum[5] / count;
-        if (counterChars[0] >= counterChars[1]) strcat(exemplar.typeOfProcessors, "x32");
-        else strcat(exemplar.typeOfProcessors, "x64");
-        int max = 0;
-        int max_i = 2;
-        for (int i = 2; i < 6; i++)
-            if (counterChars[i] > max) {
-                max = counterChars[i];
-                max_i = i;
-            }
-        if (max_i == 2) strcat(exemplar.typeOfProcessors, "built-in");
-        if (max_i == 3) strcat(exemplar.typeOfVideoController, "external");
-        if (max_i == 4) strcat(exemplar.typeOfVideoController, "AGP");
-        if (max_i == 5) strcat(exemplar.typeOfVideoController, "PCI");
-        if (counterChars[6] >= counterChars[7]) strcat(exemplar.videoMemoryType, "SCSI/IDE");
-        else strcat(exemplar.videoMemoryType, "ATA/SATA");
-        max = 0;
-        max_i = 8;
-        for (int i = 8; i < 11; i++)
-            if (counterChars[i] > max) {
-                max = counterChars[i];
-                max_i = i;
-            }
-        if (max_i == 8) strcat(exemplar.OC, "Windows");
-        if (max_i == 9) strcat(exemplar.OC, "Linux");
-        if (max_i == 10) strcat(exemplar.OC, "MacOS");
-
+        int a[count];
+        for(int i = 0; i < count; i++)
+            a[i] = 0;
+       int counter = 0;
         printf("|Num Proc|Type of proc|Memory|Type video control|Video memory|Video memory type|Num HD|Capacity HD|Num peripherals|OC|\n");
-        printf("----------------------------------------------------------------------------------------------------------------------\n");
-        printf("|%8d|%12s|%6dGB|%18s|%12dGB|%17s|%6dGB|%11dGB|%15d|%2s|\n",exemplar.numberOfProcessors, exemplar.typeOfProcessors, exemplar.memoryCapacity,
-                exemplar.typeOfVideoController, exemplar.videoMemoryCapacity, exemplar.videoMemoryType, exemplar.numberOfHardDrives, exemplar.capacityOfHardDrives,
-                exemplar.peripherals, exemplar.OC);
-        fclose(file);
+                printf("----------------------------------------------------------------------------------------------------------------------\n");
+       while(checker(a,count)){
+           fseek(file,0,SEEK_SET);
+           int flag = 0; // cicly 'for' for files
+           int cur1 = 0;
+           PC exemplar = {0};
+           while (fread(&f, sizeof(PC), 1, file) != EOF && !feof(file)) {
+                if(a[cur1]){
+                    cur1++;
+                    continue;
+                }
+                if(!flag){
+                exemplar.numberOfProcessors = f.numberOfProcessors;
+                exemplar.memoryCapacity = f.memoryCapacity;
+                exemplar.videoMemoryCapacity = f.videoMemoryCapacity;
+                exemplar.numberOfHardDrives = f.numberOfHardDrives;
+                exemplar.capacityOfHardDrives = f.capacityOfHardDrives;
+                exemplar.peripherals = f.peripherals;
+                strcat(exemplar.typeOfProcessors, f.typeOfProcessors);
+                strcat(exemplar.typeOfVideoController, f.typeOfVideoController);
+                strcat(exemplar.videoMemoryType, f.videoMemoryType);
+                strcat(exemplar.OC, f.OC);
+                flag = 1;
+                }
+                if(equals(exemplar,f)){
+                    a[cur1] = 1;
+                    counter++;
+                }
+                cur1++;
+           }
+           if(counter > p){
+                printf("|%8d|%12s|%4dGB|%18s|%10dGB|%17s|%4dGB|%9dGB|%15d|%2s|\n",exemplar.numberOfProcessors, exemplar.typeOfProcessors, exemplar.memoryCapacity,
+                        exemplar.typeOfVideoController, exemplar.videoMemoryCapacity, exemplar.videoMemoryType, exemplar.numberOfHardDrives, exemplar.capacityOfHardDrives,
+                        exemplar.peripherals, exemplar.OC);
+           }
+           counter = 0;
+       }       
     }
 }
 
-#endif
+int checker(int *a, int n)
+{
+    int i;
+    int b[n];
+    for(i = 0; i < n; i++)
+        b[i] = a[i];
+    for(i = 0; i < n; i++)
+        if(b[i] == 0) return 1;
+    return 0;
+}
 
+int equals(PC p, PC c)
+{
+    if((p.numberOfProcessors == c.numberOfProcessors) && (p.memoryCapacity == c.memoryCapacity) &&
+    (p.videoMemoryCapacity == c.videoMemoryCapacity) && (p.numberOfHardDrives == c.numberOfHardDrives) &&
+    (p.capacityOfHardDrives == c.capacityOfHardDrives) && (p.peripherals == c.peripherals) && 
+    (!strcmp(p.typeOfProcessors, c.typeOfProcessors)) && (!strcmp(p.typeOfVideoController, c.typeOfVideoController))
+    && (!strcmp(p.videoMemoryType, c.videoMemoryType)) && (!strcmp(p.OC, c.OC))) return 1;
+    else return 0;
+}
+#endif
