@@ -44,7 +44,7 @@ void add()
             printf("Enter student's PC type of processors:\n");
             printf("1. x32\n2. x64\n");
             scanf("%s", add.typeOfProcessors);
-            printf("Enter student's PC cache memory capacity(GB):\n");
+            printf("Enter student's PC RAM capacity(GB):\n");
             scanf("%d", &add.memoryCapacity);
             printf("Enter student's PC type of video controller:\n");
             printf("1. built-in\n2. external\n3. AGP\n4. PCI\n");
@@ -82,10 +82,10 @@ void print()
         printf("Such file not exists\n");
     }
     else {
-        printf("|Student's surname|Num Proc|Type of proc|Cache mem|Type video control|Video memory|Video memory type|Num HD|Capacity HD|Num peripherals|OC|\n");
+        printf("|Student's surname|Num Proc|Type of proc| RAM |Type video control|Video memory|Video memory type|Num HD|Capacity HD|Num peripherals|OC|\n");
         printf("-------------------------------------------------------------------------------------------------------------------------------\n");
         while (fread(&read, sizeof(PC), 1, file) != EOF && !feof(file)) {
-            printf("|%17s|%8d|%12s|%7dGB|%18s|%10dGB|%17s|%4dGB|%9dGB|%15d|%2s|\n", read.surname, read.numberOfProcessors, read.typeOfProcessors, read.memoryCapacity,
+            printf("|%17s|%8d|%12s|%3dGB|%18s|%10dGB|%17s|%4dGB|%9dGB|%15d|%2s|\n", read.surname, read.numberOfProcessors, read.typeOfProcessors, read.memoryCapacity,
                 read.typeOfVideoController, read.videoMemoryCapacity, read.videoMemoryType, read.numberOfHardDrives, read.capacityOfHardDrives,
                 read.peripherals, read.OC);
         }
@@ -131,7 +131,7 @@ void typicalConfigurations()
         for(int i = 0; i < count; i++)
             a[i] = 0;
        int counter = 0;
-        printf("|Num Proc|Type of proc|Cache mem|Type video control|Video memory|Video memory type|Num HD|Capacity HD|Num peripherals|OC|\n");
+        printf("|Num Proc|Type of proc| RAM |Type video control|Video memory|Video memory type|Num HD|Capacity HD|Num peripherals|OC|\n");
                 printf("----------------------------------------------------------------------------------------------------------------------\n");
        while(checker(a,count)){
            fseek(file,0,SEEK_SET);
@@ -163,7 +163,7 @@ void typicalConfigurations()
                 cur1++;
            }
            if(counter > p){
-                printf("|%8d|%12s|%7dGB|%18s|%10dGB|%17s|%4dGB|%9dGB|%15d|%2s|\n",exemplar.numberOfProcessors, exemplar.typeOfProcessors, exemplar.memoryCapacity,
+                printf("|%8d|%12s|%3dGB|%18s|%10dGB|%17s|%4dGB|%9dGB|%15d|%2s|\n",exemplar.numberOfProcessors, exemplar.typeOfProcessors, exemplar.memoryCapacity,
                         exemplar.typeOfVideoController, exemplar.videoMemoryCapacity, exemplar.videoMemoryType, exemplar.numberOfHardDrives, exemplar.capacityOfHardDrives,
                         exemplar.peripherals, exemplar.OC);
            }
