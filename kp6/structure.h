@@ -26,6 +26,8 @@ void add();
 void print(); 
 void removes(); 
 void typicalConfigurations();
+int checker(int *a, int n);
+int equals(PC p, PC c);
 
 
 #endif
