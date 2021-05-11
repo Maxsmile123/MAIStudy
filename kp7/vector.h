@@ -12,7 +12,7 @@ typedef struct _Vector
 	int _capacity;
 } Vector;
 
-void vectorCreate(Vector *v, const int size);
+Vector *vectorCreate(const int size);
 int vectorEmpty(const Vector *v); 
 int vectorSize(const Vector *v);
 int vectorCapacity(const Vector *v);
@@ -22,5 +22,6 @@ int vectorPushBack(Vector *v, const VECTOR_TYPE value);
 void vectorResize(Vector *v, const int size);
 int vectorEqual(const Vector *v1, const Vector *v2);
 void vectorDestroy(Vector *v);
+void vectorPrint(Vector *v, const int size);
 
 #endif
