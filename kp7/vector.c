@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include "vector.h"
 
-void vectorCreate(Vector *v, const int size)
+Vector* vectorCreate(const int size)
 {
+	Vector *v;
+	v = (Vector*) malloc(sizeof(Vector));
 	if (size > 0)
 	{
 		v->_data = (VECTOR_TYPE *)malloc(sizeof(VECTOR_TYPE) * size);
@@ -116,6 +118,6 @@ void vectorDestroy(Vector *v)
 
 void vectorPrint(Vector *v, const int size) {
 	for (int i = 0; i < size; i++)
-		printf("%d ", v[i]);
+		printf("%d ", v->_data[i]);
 	printf("\n");
 }
