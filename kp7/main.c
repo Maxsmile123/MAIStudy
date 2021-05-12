@@ -73,7 +73,7 @@ int main(void)
 		file = fopen("matrix.txt", "r");
 		if (file) { 
 			fscanf(file, "%d%d", &m, &n);
-			vectorFill(&CIP, &PI, &YE, file, m, n);
+			vectorFill(&CIP, &PI, &YE, m, n);
 			switch (c) 
 			{
 			case '1':
