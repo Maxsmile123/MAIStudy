@@ -8,26 +8,24 @@ void print_menu()
 	printf("2) Complete the task\n0 for exit\n");
 }
 
-void vectorFill(Vector** CIP, Vector** PI, Vector** YE, FILE* file, int m, int n)
+void vectorFill(Vector** CIP, Vector** PI, Vector** YE, int m, int n)
 {
 	int num;
-	if (file) {
-		int count = 0; // number of num != 0
-		if (*CIP) free(*CIP);
-		if (*PI) free(*PI);
-		if (*YE) free(*YE);
-		*CIP = vectorCreate(1);
-		*PI = vectorCreate(1);
-		*YE = vectorCreate(1);
-		for (int i = 1; i <= m; i++) {
-			vectorPushBack(*CIP, count);
-			for (int j = 1; j <= n; j++) {
-				fscanf(file, "%d", &num);
-				if (num) {
-					vectorPushBack(*PI, j);
-					vectorPushBack(*YE, num);
-					count++;
-				}
+	int count = 0; // number of num != 0
+	if (*CIP) free(*CIP);
+	if (*PI) free(*PI);
+	if (*YE) free(*YE);
+	*CIP = vectorCreate(1);
+	*PI = vectorCreate(1);
+	*YE = vectorCreate(1);
+	for (int i = 1; i <= m; i++) {
+		vectorPushBack(*CIP, count);
+		for (int j = 1; j <= n; j++) {
+			fscanf(file, "%d", &num);
+			if (num) {
+				vectorPushBack(*PI, j);
+				vectorPushBack(*YE, num);
+				count++;
 			}
 		}
 	}
