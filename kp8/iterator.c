@@ -1,12 +1,14 @@
-
 #include <stdlib.h>
+#include <stdio.h>
 #include "iterator.h"
 
 listIterator *iteratorCreate(list *lst)
 {
-    listIterator *it = (listIterator*) malloc(sizeof(listIterator));
-    it->node = lst->head;
-    return it;
+    if(lst != NULL){
+        listIterator *it = (listIterator*) malloc(sizeof(listIterator));
+        it->node = lst->head;
+        return it;
+    } else return NULL;
 }
 void iteratorNext(listIterator *it)
 {
