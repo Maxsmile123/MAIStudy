@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include <list.h>
-#include <iterator.h>
+#include <stdlib.h>
+#include "list.h"
+#include "iterator.h"
 
 
 
@@ -16,41 +17,54 @@ void print_menu() {
 
 int main(void) 
 {
-	list *lst = create();
+	item data;
+	char rubish;
+	list *lst = listCreate();
+	listIterator *it = iteratorCreate(lst); 
 	char c;
 	printf("Welcome to the list processing program!\n");
 	print_menu();
 	while ((c = getchar()) != EOF) {
+		iteratorSet(lst->head,it);
 		if (c == '\n') continue;
 		switch (c) {
 		case '1':
-			item data;
-			printf("Enter the value you want to add:");
-			scanf("%c", &data);
+			printf("Enter the value you want to add: ");
+			rubish = getchar();
+			data = getchar();
 			listInsert(lst, data);
 			break;
 		case '2':
 			listPrint(lst);
 			break;
 		case '3':
-			item data;
-			printf("Enter the value you want to delete:");
-			scanf("%c", &data);
+			printf("Enter the value you want to delete: ");
+			rubish = getchar();
+			data = getchar();
 			listRemove(lst, data);
 			break;
 		case '4':
-			listLen(lst);
+			printf("%d", listLen(lst));
 			break;
 		case '5':
-			listIterator *it = iteratorCreate(lst); 
-			for(int j = 0; j < listLen(lst); j++){ // seatch for tail list_node
+			iteratorSet(lst->head,it);
+			for(int j = 0; j < listLen(lst) - 1; j++){ // search for tail list_node
         		iteratorNext(it);
     		}
-			listReverse(lst->head, it->node, 1, lst);
-			free(it);
+			listReverse(lst->head, it->node, 1, lst, listLen(lst));
+			iteratorSet(lst->head,it);
+			for(int j = 0; j < listLen(lst) - 1; j++){ // search for tail list_node
+        		iteratorNext(it);
+    		}
+			list_node *tail = (list_node*) malloc(sizeof(list_node));
+        		tail->next = NULL; 
+        		tail->data = ' ';  
+			it->node->next = tail;
 			break;
 		case '0':
 			printf("\nHave a nice day!\n");
+			free(it);
+			free(lst);
 			return 0;
 		default:
 			printf("The number you entered isn't in the menu :(\nPlease try again, in case you made a mistake\n");
