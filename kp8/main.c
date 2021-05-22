@@ -26,7 +26,7 @@ int main(void)
 	print_menu();
 	while ((c = getchar()) != EOF) {
 		iteratorSet(lst->head,it);
-		if (c == '\n' && c == ' ') continue;
+		if (c == '\n' || c == ' ') continue;
 		switch (c) {
 		case '1':
 			printf("Enter the value you want to add: ");
