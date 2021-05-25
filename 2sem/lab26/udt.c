@@ -5,7 +5,7 @@ void udtCreate(Udt *udt, const int capacity)
 	int i;
 	UDT_TYPE item;
 
-	item._key = 0.0f;
+	item._key = 0;
 	item._str[0] = '\0';
 
 	if (capacity <= 0)
@@ -55,7 +55,7 @@ void udtPopFront(Udt *udt)
 	const int pos = (udt->_first + udt->_capacity + 1) % udt->_capacity;
 	UDT_TYPE item;
 
-	item._key = 0.0f;
+	item._key = 0;
 	item._str[0] = '\0';
 
 	if (udt->_size == 0)
@@ -71,7 +71,7 @@ void udtPopBack(Udt *udt)
 	const int pos = (udt->_last + udt->_capacity - 1) % udt->_capacity;
 	UDT_TYPE item;
 
-	item._key = 0.0f;
+	item._key = 0;
 	item._str[0] = '\0';
 
 	if (udt->_size == 0)
@@ -120,7 +120,7 @@ void udtPrint(Udt *udt)
 	{
 		item = udt->_data[(i + udt->_first) % udt->_capacity];
 
-		printf("|%7d|%12.2f|%30s|\n", i + 1, item._key, item._str);
+		printf("|%7d|%12d|%30s|\n", i + 1, item._key, item._str);
 	}
 
 	printf("+-------+------------+------------------------------+\n");
@@ -139,4 +139,30 @@ void udtDestroy(Udt *udt)
 	udt->_size = 0;
 	udt->_first = 0;
 	udt->_last = 0;
+}
+
+void task(Udt *udt)
+{
+	if(!udt || !udt->_data) return;
+	const int pos = (udt->_last + udt->_capacity - 1) % udt->_capacity;
+	int max = 0;
+	int i = -1;
+	for(int j = 0; j < udtSize(udt); j++){
+		if (strlen(udt->_data[i]._str) > max){
+			max = strlen(udt->_data[i]._str);
+			i = j  + 1;
+		}
+	}
+	if(i == udt->_first){
+		udtPopFront(udt);
+	} else if (i == udt->_last){
+		udtPopBack(udt);
+	} else{
+		for(i; i < udtSize(udt) - 1;i++){
+			udt->_data[i] = udt->_data[i+1];
+		}
+		udt->_last = pos;
+		udt->_size--;
+	}
+	printf("удаленно!\n");
 }
