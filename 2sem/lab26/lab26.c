@@ -22,8 +22,9 @@ int main(void)
 		printf("4) Удалить элемент справа\n");
 		printf("5) Размер дека\n");
 		printf("6) Сортировка\n");
-		printf("7) Печать\n");
-		printf("8) Выход\n");
+		printf("7) Поиск и удаление строки максимальной длины\n");
+		printf("8) Печать\n");
+		printf("9) Выход\n");
 		printf("Выберите действие: ");
 		scanf("%d", &action);
 
@@ -32,13 +33,13 @@ int main(void)
 			case 1:
 			{
 				printf("Введите ключ: ");
-				scanf("%f", &item._key);
+				scanf("%d", &item._key);
 				scanf("%c", &tmpCh);
 				printf("Введите Строку: ");
 				getLine(item._str, sizeof(item._str));
 
 				if (udtPushFront(&udt, item))
-					printf("Элемент с ключом %f и строкой '%s' добавлен успешно\n", item._key, item._str);
+					printf("Элемент с ключом %d и строкой '%s' добавлен успешно\n", item._key, item._str);
 				else
 					printf("Дек полон\n");
 
@@ -48,13 +49,13 @@ int main(void)
 			case 2:
 			{
 				printf("Введите ключ: ");
-				scanf("%f", &item._key);
+				scanf("%d", &item._key);
 				scanf("%c", &tmpCh);
 				printf("Введите Строку: ");
 				getLine(item._str, sizeof(item._str));
 
 				if (udtPushBack(&udt, item))
-					printf("Элемент с ключом %f и строкой '%s' добавлен успешно\n", item._key, item._str);
+					printf("Элемент с ключом %d и строкой '%s' добавлен успешно\n", item._key, item._str);
 				else
 					printf("Дек полон\n");
 
@@ -69,7 +70,7 @@ int main(void)
 
 					udtPopFront(&udt);
 
-					printf("Элемент с ключом %f и строкой '%s' удален успешно\n", item._key, item._str);
+					printf("Элемент с ключом %d и строкой '%s' удален успешно\n", item._key, item._str);
 				}
 				else
 					printf("Дек пуст\n");
@@ -85,7 +86,7 @@ int main(void)
 
 					udtPopBack(&udt);
 
-					printf("Элемент с ключом %f и строкой '%s' удален успешно\n", item._key, item._str);
+					printf("Элемент с ключом %d и строкой '%s' удален успешно\n", item._key, item._str);
 				}
 				else
 					printf("Дек пуст\n");
@@ -109,6 +110,13 @@ int main(void)
 
 			case 7:
 			{
+				task(&udt);
+
+				break;
+			}
+
+			case 8:	
+			{
 				if (udtSize(&udt) > 0)
 				{
 					printf("Дек:\n");
@@ -120,8 +128,7 @@ int main(void)
 
 				break;
 			}
-
-			case 8: break;
+			case 9: break;
 
 			default:
 			{
@@ -131,7 +138,7 @@ int main(void)
 			}
 		}
 	}
-	while (action != 8);
+	while (action != 9);
 	
 	udtDestroy(&udt);
 
@@ -147,3 +154,4 @@ void getLine(char *str, const int size)
 
 	str[cnt] = '\0';
 }
+
