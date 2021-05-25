@@ -1,12 +1,10 @@
-#ifndef UDT_H
-#define UDT_H
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct _Item
 {
-	float _key;
+	int _key;
 	char _str[31];
 } Item;
 
@@ -33,5 +31,6 @@ int udtCapacity(const Udt *udt);
 int udtEmpty(const Udt *udt);
 void udtPrint(Udt *udt);
 void udtDestroy(Udt *udt);
+void task(Udt *udt);
 
 #endif
