@@ -147,10 +147,12 @@ void task(Udt *udt)
 	const int pos = (udt->_last + udt->_capacity - 1) % udt->_capacity;
 	int max = 0;
 	int i = -1;
+	Item item;
 	for(int j = 0; j < udtSize(udt); j++){
-		if (strlen(udt->_data[i]._str) > max){
-			max = strlen(udt->_data[i]._str);
-			i = j  + 1;
+		item = udt->_data[(i + udt->_first) % udt->_capacity];
+		if (strlen(item._str) > max){
+			max = strlen(item._str);
+			i = j;
 		}
 	}
 	if(i == udt->_first){
@@ -159,7 +161,7 @@ void task(Udt *udt)
 		udtPopBack(udt);
 	} else{
 		for(i; i < udtSize(udt) - 1;i++){
-			udt->_data[i] = udt->_data[i+1];
+			udt->_data[(i + udt->_first) % udt->_capacity] = udt->_data[(i + udt->_first + 1) % udt->_capacity];
 		}
 		udt->_last = pos;
 		udt->_size--;
