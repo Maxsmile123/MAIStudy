@@ -95,8 +95,7 @@ function sortByPyramid() {
         heapify $j 0
     done
 }
-true=1
-false=0
+
 
 count=0
 if [ $# -ne 1 ] # from file or from stdin. if true - stdin else file
