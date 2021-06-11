@@ -1,12 +1,8 @@
-\documentclass[a4paper,12pt]{article} % тип документа
-
-% report, book
-
-%  Русский язык
+\documentclass[a4paper,12pt]{article} 
 
 \usepackage[T2A]{fontenc}			% кодировка
 \usepackage[utf8]{inputenc}			% кодировка исходного текста
-\usepackage[english,russian]{babel}	% локализация и переносы
+\usepackage[english,russian]{babel}		% локализация и переносы
 
 
 % Математика
@@ -17,6 +13,7 @@
 \setcounter{page}{461}
 \setcounter{equation}{9}
 \setcounter{subsection}{18}
+
 \begin{document}
 
 \textit{Если первообразная некоторой функции $f$ является элементарной функцией, то говорят, что интеграл $\int f(x)dx$ выражается через элементарные функции или что этот интеграл вычисляется.}
@@ -56,9 +53,47 @@
 \begin{equation}
     \int f(x)dx|_{x = \phi (t)} = F(\phi (t)) + C.
 \end{equation}
+\begin{center}
+    -----------------
+\end{center}
 \end{flushleft}
 \newpage
 В формулах (18.13) и (18.14) равны правые части, значит, равны и левые, т.е. имеет место равенство (18.11).\hspace{3pt}$\square$
 
-Формула (18.11) называется формулой интегрирования подстановкой, а именно под
+Формула (18.11) называется формулой интегрирования подстановкой, а именно подстановкой $\phi (t) = x$. Это название объясняется тем, что если формулу (18.11) записать в виде
+\begin{equation}
+    \int f(\phi (t))d\phi (t) = \int f(x)dx|_{x = \phi (t)}, 
+\end{equation}
+то будет видно, что, для того чтобы вычислить интеграл $\int f(\phi (t))\phi^{'} (t)dt = \int f(\phi (t))d\phi (t)$, можно сделать подстановку $x = \phi (t)$, вычислить интеграл $\int f(x)dx$ и затем вернуться к переменной $t$, положив $x = \phi (t)$.
+
+\textbf{Примеры. 1.} Для вычисления интеграла $\int \cos ax\hspace{5pt} dx$ естественно сделать подстановку $u = ax$, тогда
+\begin{displaymath}
+   \int \cos{ax} \hspace{5pt}dx = \frac{1}{a}\int \cos{u}\hspace{5pt}du = \frac{1}{a}\sin{u} + C = \frac{1}{a}\sin{ax} + C,a \ne 0
+\end{displaymath}
+
+\textbf{2.} Для вычисления интеграла $\int \frac{xdx}{x^2 + a^2}$ удобно применить подстановку $u = x^3 + a^2$:
+\begin{displaymath}
+   \int \frac{xdx}{x^2 + a^2} = \frac{1}{2}\int\frac{du}{u} = \frac{1}{2}\ln{|u|} + C = \frac{1}{2}\ln{(x^2 + a^2)} + C.
+\end{displaymath}
+
+\textbf{3.} При вычислении интегралов вида $\int \frac{\phi^{'}(x)dx}{\phi (x)},\phi (x) \ne 0$, полезна подстановка $u = \phi (x)$: 
+\begin{displaymath}
+   \int \frac{\phi^{'}(x)}{\phi (x)} dx = 
+   \int\frac{d\phi (x)}{\phi (x)} = \int\frac{du}{u} = \ln{\left|\phi (x)\right|} + C.
+\end{displaymath}
+Например,
+\begin{displaymath}
+   \int \tg x \hspace{5pt} dx = -\int\frac{d\cos x}{\cos x} = -\ln{(|\cos x)|} + C.
+\end{displaymath}
+
+Иногда, прежде чем применить метод интегрирования подстановкой, приходится проделать более сложные преобразования подынтегральной функции:
+\begin{displaymath}
+   \int \frac{dx}{\sin x} = \int \frac{dx}{2\sin{\frac{x}{2}}\cos{\frac{x}{2}}} = \int \frac{1}{\tg{\frac{x}{2}}}\frac{dx}{2\cos^2{\frac{x}{2}}} = \int \frac{d\tg{\frac{x}{2}}}{\tg{\frac{x}{2}}} = \ln{\left|\tg{\frac{x}{2}}\right|} + C.% подрегулировать модуль, чтобы хорошо стоял
+\end{displaymath}
+
+Отметим, что формулу (18.11) бывает целесообразно использовать и в обратном порядке, т.е. справа налево. Именно, иногда удобно вычисление интеграла $\int f(x)\hspace{5pt}dx$ с помощью
+\begin{center}
+    -----------------
+\end{center}
 \end{document}
+
