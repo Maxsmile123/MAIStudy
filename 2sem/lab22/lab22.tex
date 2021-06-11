@@ -1,0 +1,64 @@
+\documentclass[a4paper,12pt]{article} % тип документа
+
+% report, book
+
+%  Русский язык
+
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+
+
+% Математика
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+
+\renewcommand{\theequation}{\arabic{subsection}.\arabic{equation}}
+\usepackage{wasysym}
+\setcounter{page}{461}
+\setcounter{equation}{9}
+\setcounter{subsection}{18}
+\begin{document}
+
+\textit{Если первообразная некоторой функции $f$ является элементарной функцией, то говорят, что интеграл $\int f(x)dx$ выражается через элементарные функции или что этот интеграл вычисляется.}
+\begin{flushleft}
+
+\subsection*{18.4. Интегрирование подстановкой \hspace{5cm}(замена переменной)}
+
+
+В этом и следующем пунктах будут рассмотрены два свойства неопределённого интеграла, часто оказывающиеся полезными при вычислении первообразных элементарных функций.
+
+\textbf{Теорема 1.} \textit{Пусть функции $f(x)$ и $\phi (t)$ определены соответственно на промежутках $\Delta_x$ и $\Delta_t$,причем $\phi (\Delta_t) \subset \Delta_x$. Если функция $f$ имеет на $\Delta_x$ первообразную $F(x)$ и, следовательно,}
+\begin{equation}
+    \int f(x)dx = F(x) + C
+\end{equation}
+
+\textit{а функция $\phi$ дифференцируема на $\Delta_t$, то функция $f(\phi (t))\phi^{'} (t)$ имеет на $\Delta_t$ первообразную $F(\phi (t))$ и}
+\begin{equation}
+    \int f(\phi (t))\phi^{'} (t)dt = \int f(x)dx|_{x = \phi (t)}
+\end{equation}
+
+\textit{Доказательство.} 
+Функции $f$ и $F$ определены на промежутке $\Delta_x$, и так как, по условию теоремы, справедливо включение $\phi (\Delta_t) \subset \Delta_x$, то имеют смысл сложные функции $f(\phi(t))$ и $F(\phi(t))$. При этом так как
+\begin{equation}
+    F^{'}(x) = f(x),x \in \Delta_x,
+\end{equation}
+то по правилу дифференцирования сложной функции получим
+\begin{displaymath}
+    \frac{d}{dt}F(\phi(t)) = \frac{dF}{dx}|_{x = \phi (t)}
+    \hspace{5pt}
+    \frac{d\phi (t)}{dt} = f(\phi (t))\phi^{'}(t), t \in \Delta_t.
+\end{displaymath}
+Это и означает, что функция $f(\phi (t))\phi^{'}(t)$ имеет в качестве одной из своих первообразных функцию $F(\phi (t))$. Отсюда, согласно определению интеграла, следует, что
+\begin{equation}
+    \int f(\phi (t))\phi^{'} (t)dt = F(\phi (t)) + C.
+\end{equation}
+Подставив же в формулу (18.10) $x = \phi (t)$, получим
+\begin{equation}
+    \int f(x)dx|_{x = \phi (t)} = F(\phi (t)) + C.
+\end{equation}
+\end{flushleft}
+\newpage
+В формулах (18.13) и (18.14) равны правые части, значит, равны и левые, т.е. имеет место равенство (18.11).\hspace{3pt}$\square$
+
+Формула (18.11) называется формулой интегрирования подстановкой, а именно под
+\end{document}
